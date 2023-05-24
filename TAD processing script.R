@@ -2,7 +2,7 @@
 library(tidyverse)
 
 #Load Data
-raw_data <- read_csv("Dynisty_rule_data.csv")
+raw_data <- read_csv("FILENAME.csv")
 raw_data <- X2022_11_04_Dpse_UCI_mRNA_Dpse_TL_SPE123_6_3_B_Flye_v2_pilon_mb_hits
 
 #group by Query and subject and choose the highest percentage
@@ -19,10 +19,9 @@ write.csv(decision_data, file="high_match.csv")
 
 
 #Take Query and Locus from file 1 and match to file 2. When we find the match, we keep TAD_ID
-setwd("C:/Users/dynis/OneDrive - The Pennsylvania State University/R data and scripts")
 library(readxl)
-Blast_data <- read_excel("Blast_of_AR_to_TL.xlsx")
-dpse_data <- read_excel("2023_05_13_Dpse_UCI_All_RNA.xlsx",sheet = 3)
+Blast_data <- read_excel("FILENAME.xlsx")
+dpse_data <- read_excel("FILENAME.xlsx",sheet = SHEET#)
 
 join_data <- inner_join(Blast_data,dpse_data[,c("Transcript","Locus","TAD_ID")],by = c("Query" = "Transcript",
                                                                                        "Locus" = "Locus"))
@@ -32,6 +31,6 @@ Blast <- AR_to_TL %>%
   group_by(Locus, Subject) %>%
   mutate(Include1 = if_else(duplicated(Locus)==FALSE, "yes", "no"))
 
-write.csv(Blast, file = "Blast of AR to TL.csv")
+write.csv(Blast, file = "FILENAME.csv")
 
 
